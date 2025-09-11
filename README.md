@@ -5,9 +5,9 @@ Tento projekt by měl obsahovat model vrat (3D tisk) s automatizovaným otvírá
 * Zavírat by se měla pomocí ovladače nebo automaticky po určitém čase nečinosti a nepřerušení senzorů
 * Vrata by měla mít senzor které je zastaví při jejich přerušení
 ## Technologie:
-* Arduino nano
+* Arduino nano/due
 * 3D tisk
-* FreeCAD(program na modelování)
+* FreeCAD (program na modelování)
 * IR senzor + ovladač
 * Spínač (pro kontrolu dovření)
 * Led diody (pro signalizaci otevíraní)
