@@ -7,7 +7,7 @@ Tento projekt by měl obsahovat model vrat (3D tisk) s automatizovaným otvírá
 ## Technologie:
 * Arduino nano
 * 3D tisk
-* (nějaký program na modelování)
+* FreeCAD(program na modelování)
 * IR senzor + ovladač
 * Spínač (pro kontrolu dovření)
 * Led diody (pro signalizaci otevíraní)
