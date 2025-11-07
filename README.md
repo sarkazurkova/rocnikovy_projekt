@@ -6,6 +6,7 @@ Tento projekt by měl obsahovat model vrat (3D tisk) s automatizovaným otvírá
 * Ukládání aktivity na externí EEPROM
 ## Hardware:
 * Arduino nano -> (<a href="https://dratek.cz/arduino-platforma/1164-arduino-nano-v3.0-atmega328-16m-5v-ch340g-klon.html?gad_source=1&gad_campaignid=21656222776&gclid=CjwKCAiAzrbIBhA3EiwAUBaUdRyUMOf-uU_jOiWspvtKDLcbj0tLrU5hqrqULxrOMieoYCE5gM3R9hoCwasQAvD_BwE">odkaz na přesný model</a>),
+* Krokový motor s řadičem - 28BYJ-48 -> (<a href="https://dratek.cz/arduino-platforma/832-eses-krokovy-motor-driver-pro-jednodeskove-pocitace.html?gad_source=1&gad_campaignid=21656222776&gclid=CjwKCAiAzrbIBhA3EiwAUBaUdZMjOIUR6vu3ykNcICCPdXwUmr6GQpg0sxQvg9nRcPnFB50ICDdrDBoCxjkQAvD_BwE">odkaz</a>),
 * Bluetooth modul HC-05 -> (<a href="https://dratek.cz/arduino-platforma/1005-bluetooth-modul-hc-05.html?gad_source=1&gad_campaignid=21656222776&gclid=CjwKCAiAzrbIBhA3EiwAUBaUdXOU5O9iV82j8aUsSBK4fpcx0ldwrNyQapNDFr8ytgcFOc1s_ye-SRoCwg0QAvD_BwE">odkaz</a>),
 * IR senzor překážek -> (<a href="https://dratek.cz/arduino-platforma/3086-infracerveny-senzor-prekazek.html?gad_source=1&gad_campaignid=21656222776&gclid=CjwKCAiAzrbIBhA3EiwAUBaUdQadTY3El2auB6j7Mm-L1a_HMSQUQLyRKYPXy8-xGiLsuTPPbbEqrBoCDogQAvD_BwE">odkaz</a>),
 * RTC hodiny realného času DS3231 -> (<a href="https://dratek.cz/arduino-platforma/1261-rtc-hodiny-realneho-casu-ds3231-at24c32-iic-pametovy-modul-pro-arduino.html?gad_source=1&gad_campaignid=21656222776&gclid=CjwKCAiAzrbIBhA3EiwAUBaUdTbU1xXABdAUUsSJcr43bs6vR9GmyyjODTNtQmIF6hd68jElmn2mjhoCFhwQAvD_BwE">odkaz</a>),
