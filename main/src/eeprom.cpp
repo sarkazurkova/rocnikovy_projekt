@@ -60,7 +60,6 @@ byte loadIndex() {
 // Resetuje index na 1, 0. index je pro zapisování posledního indexu 
 void resetIndex() {
   saveIndex(1);  
-  Serial.println("Index v EEPROM byl resetovan na 0.");
 }
 
 // Hlavní funkce pro uložení dat, posunutí indexu
@@ -83,7 +82,6 @@ void logEvent(byte eventCode) {
 
 // Vymaže celou EEPROM
 void clearEEPROM() {
-  Serial.println("Mazu EEPROM...");
   for (uint16_t i = 0; i < 256; i++) {
     writeByte(i, 0xFF); 
   }
@@ -92,7 +90,7 @@ void clearEEPROM() {
 }
 
 // Formát pro výpis času na konzoli
-void printDate(DateTime now) {
+/*void printDate(DateTime now) {
   Serial.print(now.day(), DEC);
   Serial.print('.');
   Serial.print(now.month(), DEC);
@@ -104,10 +102,10 @@ void printDate(DateTime now) {
   Serial.print(now.minute(), DEC);
   Serial.print(':');
   Serial.print(now.second(), DEC);
-}
+}*/
 
 // Vypíše všechny záznamy na konzoli
-void printAllRecords() {
+/*void printAllRecords() {
  // byte idx = loadIndex() - 10;
   Serial.println("\n--- Ulozene zaznamy ---");
   for (byte i = 1; i < RECORD_COUNT; i++) {
@@ -125,4 +123,4 @@ void printAllRecords() {
     Serial.println(ev);
   }
   Serial.println("------------------------");
-}
+}*/

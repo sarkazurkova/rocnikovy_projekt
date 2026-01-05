@@ -8,7 +8,7 @@
 #include "eeprom.h"
 #include "motor.h"
 
-
+bool open;
 bool state = LOW;
 int steps = 0; // position of the door
 extern Stepper stepper;
@@ -19,7 +19,7 @@ DateTime time;
 //------------------------------------------------SETUP
 void setup() {
   pinMode(BTNOPEN, INPUT_PULLUP);
-  //pinMode(BTNCLOSED, INPUT_PULLUP);
+  pinMode(BTNCLOSED, INPUT_PULLUP);
   pinMode(IRSensor, INPUT);
   pinMode(LED, OUTPUT);
   stepper.setSpeed(60);
@@ -56,10 +56,23 @@ void setup() {
   Serial.print (count, DEC);
   Serial.println (" device(s).");
 
+if(digitalRead(BTNCLOSED)){
+  open = false;
 }
-//------------------------------------------------konec SETUP
+else if(digitalRead(BTNOPEN)){
+  open = true;
+}
+else{
+  do{
+    motorStep(1);
+  }while(!digitalRead(BTNOPEN));
+  open = true;
+}
 
-//------------------------------------------------ Bluetooth funkce
+}
+//---------------------------------------------------------------------------------------konec SETUP
+
+//---------------------------------------------------------------------------------- Bluetooth funkce
 void print2digits(int number) {
   if (number < 10) bluetooth.print("0");
   bluetooth.print(number);
@@ -112,12 +125,10 @@ void bluetoothAllRecords() {
 void doorMove(unsigned long value){
   unsigned long end = 0;
   int ledTime = 0; //stav led, kazdych 5 hodnot se meni
-  //Serial.println(value);
-  //DateTime time  = rtc.now(); //ziska aktualni datum a cas
-  switch(value){
-    case OPEN: 
+  if(value == OPEN){
+  if(!open){
+    if(!digitalRead(BTNOPEN)){
       logEvent(1); //zaznamená aktivitu do pameti
-      //Serial.println("------");
       do{
         IrReceiver.resume(); //ceka na IR kod, pro pozastaveni
         motorStep(1); //jeden krok motoru ve smeru 1
@@ -126,15 +137,15 @@ void doorMove(unsigned long value){
         }
         ledState(ledTime); //zapina a vypina led
         ledTime++;
-      }while(end != OPEN && end != CLOSE && !digitalRead(BTNOPEN) && digitalRead(IRSensor));
+      }while(end != OPEN && !digitalRead(BTNOPEN));
       ledTime = 0; //vynuluje hodnotu
       ledEnds(); //vypnuti led
-      //timeFormat(time);
-      break;
-
-    case CLOSE:
+      open = !open;
+      Serial.println(open);
+    }
+  }else {
+    if(!digitalRead(BTNCLOSED)){
       logEvent(2);
-      //motorStart(0);
       do{
         IrReceiver.resume();
         motorStep(0);
@@ -143,20 +154,14 @@ void doorMove(unsigned long value){
         }
         ledState(ledTime);
         ledTime++;
-      }while(end != OPEN && end != CLOSE && !digitalRead(BTNCLOSED) && digitalRead(IRSensor));
+      }while(end != OPEN && !digitalRead(BTNCLOSED) && digitalRead(IRSensor));
       ledEnds();
       ledTime = 0;
-      break;
-
-    case RECORD:
-      printAllRecords();
-      bluetoothAllRecords();
-      break;
-    default:
-      //Serial.println(value);
-      break;
+      open = !open;
+      Serial.println(open);
+    }
+    }
   }
-  //timeFormat(time);
   IrReceiver.resume();
 }
 
@@ -168,13 +173,8 @@ void bSignal(byte BluetoothData){
         bluetooth.println("Value 0");
         doorMove(OPEN);
         break;
-      case '1':
-        bluetooth.println("Value 1");
-        doorMove(CLOSE);
-        break;
       case '3':
         bluetoothAllRecords();
-        printAllRecords();
         break;
       /*case '4':
         clearEEPROM();
@@ -189,12 +189,10 @@ void bSignal(byte BluetoothData){
         // v případě přijetí ostatních znaků
         // vytiskneme informaci o neznámé zprávě
         bluetooth.println("Neznamy prikaz.");
-        Serial.println(BluetoothData);
   }
 }
 
 void loop() {
- // state =0;
  if (IrReceiver.decode()){
     unsigned long receivedValue = IrReceiver.decodedIRData.decodedRawData;
     doorMove(receivedValue); 
