@@ -8,7 +8,7 @@ Stepper stepper(STEPS, 4, 6, 5, 7);
 
 extern bool state;
 extern int steps;
-const int oneStep = 10;
+const int oneStep = 15;
 
 void motorStep(bool dir){
     if(dir){

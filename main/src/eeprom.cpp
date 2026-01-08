@@ -86,7 +86,6 @@ void clearEEPROM() {
     writeByte(i, 0xFF); 
   }
   saveIndex(1);
-  Serial.println("Hotovo. EEPROM vymazana.");
 }
 
 // Formát pro výpis času na konzoli

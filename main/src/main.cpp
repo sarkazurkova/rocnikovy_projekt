@@ -122,7 +122,7 @@ void bluetoothAllRecords() {
 //---------------------------------------------------Konec Bluetooth funkcí
 
 
-void doorMove(unsigned long value){
+void gateMove(unsigned long value){
   unsigned long end = 0;
   int ledTime = 0; //stav led, kazdych 5 hodnot se meni
   if(value == OPEN){
@@ -140,7 +140,7 @@ void doorMove(unsigned long value){
       }while(end != OPEN && !digitalRead(BTNOPEN));
       ledTime = 0; //vynuluje hodnotu
       ledEnds(); //vypnuti led
-      open = !open;
+      open = !open; //neguje status brány
       Serial.println(open);
     }
   }else {
@@ -171,7 +171,7 @@ void bSignal(byte BluetoothData){
   switch (BluetoothData){
     case '0':
         bluetooth.println("Value 0");
-        doorMove(OPEN);
+        gateMove(OPEN);
         break;
       case '3':
         bluetoothAllRecords();
@@ -195,7 +195,7 @@ void bSignal(byte BluetoothData){
 void loop() {
  if (IrReceiver.decode()){
     unsigned long receivedValue = IrReceiver.decodedIRData.decodedRawData;
-    doorMove(receivedValue); 
+    gateMove(receivedValue); 
  }
  if(bluetooth.available() > 0){
     byte BluetoothData;
