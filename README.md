@@ -1,4 +1,4 @@
-# Automatická jezdící vrata  
+# Automatická brána 
 Tento projekt by měl obsahovat model vrat (3D tisk) s automatizovaným otvíráním/zavíráním.  
 ## Funkce:
 * Vrata se otevřou pomocí IR ovladače nebo Bluetooth přes mobil
