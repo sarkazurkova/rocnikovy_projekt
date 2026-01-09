@@ -1,0 +1,826 @@
+% ŠABLONA PRO PSANÍ ZÁVĚREČNÉ STUDIJNÍ PRÁCE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Autor: Jakub Dokulil (kubadokulil99@gmail.com)
+% Tato šablona byla vytvořena tak, aby pomocí ní mohli v systému LaTeX soutěžící sázet své práce a zároveň odpovídala požadavkům na formátování vyplývajícím z wordové šablony umístěné na webu soc.cz.
+%
+\documentclass[12pt, a4paper,
+%oneside,      %% -- odkomentujte, pokud chcete svou práci mít pouze jednostrannou, mezera pro hřbet pak automaticky bude pouze na levé straně
+twoside,        %% -- pro oboustranné práce, mezera pro hřbet následně střídá strany.
+openright
+]{report}
+
+
+% --- odstraneni zbytkoveho textu "superiorSup" a pod. ---
+\AtBeginDocument{%
+	% pojistka proti nechtenemu textu nactenemu z aux/toc
+	\immediate\write16{(cleaning stray figureversions output...)}%
+	\clearpage
+	\thispagestyle{empty}
+	% uplne vyprazdneni vseho, co by se objevilo mimo hlavni text
+	\let\superiorSup\relax
+	\let\textOsF\relax
+	\let\textTOsF\relax
+	\let\liningLF\relax
+	\let\liningTLF\relax
+	\let\tabularTab\relax
+	\let\proportionalProp\relax
+	\let\tabularmath\relax
+	\let\proportionalmath\relax
+	\let\fontspechyperref\relax
+	% zajisteni, ze se nic nezobrazi pred titulni stranou
+	\null
+	\newpage
+}
+%% Nutné balíčky a nastavení
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Proměnné
+\newcommand\obor{INFORMAČNÍ TECHNOLOGIE} %% -- napiš číslo a název tvého oboru
+\newcommand\kodOboru{18-20-M/01} %% -- napiš číslo a název tvého oboru
+\newcommand\zamereni{se zaměřením na počítačové sítě a programování} %% -- napiš číslo a název tvého oboru
+\newcommand\skola{Střední škola průmyslová a umělecká, Opava} %% vyplň název školy
+\newcommand\trida{IT4} %% vyplň jméno svého konzultanta
+\newcommand\jmenoAutora{Šárka Žůrková}  %% vyplň své jméno
+\newcommand\skolniRok{2025/26} %% vyplň rok
+\newcommand\datumOdevzdani{1. 1. 2026} %% vyplň rok
+\newcommand\nazevPrace{Tvorba 3D modelu automatické brány} %% vyplň název své práce
+
+\title{\nazevPrace} %% -- Název tvé práce
+\author{\jmenoAutora} %% -- tvé jméno
+\date{\datumOdevzdani} %% -- rok, kdy píšeš SOČku
+
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=1.5cm]{geometry} %% nastaví okraje, left -- vnitřní okraj, right -- vnější okraj
+
+\usepackage[czech]{babel} %% balík babel pro sazbu v češtině
+\usepackage[utf8]{inputenc} %% balíky pro kódování textu
+\usepackage[T1]{fontenc}
+\usepackage{cmap} %% balíček zajišťující, že vytvořené PDF bude prohledávatelné a kopírovatelné
+
+\usepackage{graphicx} %% balík pro vkládání obrázků
+
+\usepackage{subcaption} %% balíček pro vkládání podobrázků
+
+\usepackage{hyperref} %% balíček, který v PDF vytváří odkazy
+
+\linespread{1.25} %% řádkování
+\setlength{\parskip}{0.5em} %% odsazení mezi odstavci
+
+
+\usepackage[pagestyles]{titlesec} %% balíček pro úpravu stylu kapitol a sekcí
+\titleformat{\chapter}[block]{\scshape\bfseries\LARGE}{\thechapter}{10pt}{\vspace{0pt}}[\vspace{-22pt}]
+\titleformat{\section}[block]{\scshape\bfseries\Large}{\thesection}{10pt}{\vspace{0pt}}
+\titleformat{\subsection}[block]{\bfseries\large}{\thesubsection}{10pt}{\vspace{0pt}}
+
+
+\usepackage{tocloft} % Balíček umožní přizpůsobit vzhled tabulky obsahu
+\setlength{\cftbeforechapskip}{0pt}  % Menší rozestup pro kapitoly
+\setlength{\cftbeforesecskip}{0pt}   % Menší rozestup pro sekce
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{1}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.025pt}
+
+
+
+\usepackage{booktabs}
+
+\usepackage{url}
+
+%% Balíčky co se můžou hodit :) 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{pdfpages} %% Balíček umožňující vkládat stránky z PDF souborů, 
+
+\usepackage{upgreek} %% Balíček pro sazbu stojatých řeckých písmen, třeba u jednotky mikrometr. Například stojaté mí: \upmu, stojaté pí: \uppi
+
+\usepackage{amsmath}    %% Balíčky amsmath a amsfonts 
+\usepackage{amsfonts}   %% pro sazbu matematických symbolů
+\usepackage{esint}     %% pro sazbu různých integrálů (např \oiint)
+\usepackage{mathrsfs}
+\usepackage{helvet} % Helvet font
+\usepackage{mathptmx} % Times New Roman
+\makeatletter
+\@namedef{ver@figureversions.sty}{9999/99/99}
+\newcommand{\DeclareFigureVersion}[2]{}
+\newcommand{\figureversion}[1]{}
+\makeatother
+
+
+\makeatletter
+\providecommand{\superiorSup}{}
+\providecommand{\textOsF}{}
+\providecommand{\textTOsF}{}
+\providecommand{\liningLF}{}
+\providecommand{\liningTLF}{}
+\providecommand{\tabularTab}{}
+\providecommand{\proportionalProp}{}
+\makeatother
+\makeatletter
+\providecommand{\superiorSup}{}
+\providecommand{\textOsF}{}
+\providecommand{\textTOsF}{}
+\providecommand{\liningLF}{}
+\providecommand{\liningTLF}{}
+\providecommand{\tabularTab}{}
+\providecommand{\proportionalProp}{}
+\providecommand{\tabularmath}{}
+\providecommand{\proportionalmath}{}
+\makeatother
+
+\usepackage{Oswald} % Oswald font
+
+
+%% makra pro sazbu matematiky
+\newcommand{\dif}{\mathrm{d}} %% makro pro sazbu diferenciálu, místo toho
+%% abych musel psát '\mathrm{d}' mi stačí napsat '\dif' což je mnohem 
+%% kratší a mohu si tak usnadnit práci
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\renewcommand{\lstlistingname}{Kód}% Listing -> Algorithm
+\renewcommand{\lstlistlistingname}{Seznam programových kódů}% List of Listings -> List of Algorithms
+\addto\captionsczech{
+	\renewcommand{\refname}{Seznam použitých internetových zdrojů}
+	\renewcommand{\bibname}{Seznam použitých internetových zdrojů}
+}
+
+
+
+
+
+%% Definice 
+\lstdefinelanguage{JavaScript}{
+	morekeywords=[1]{break, continue, delete, else, for, function, if, in,
+		new, return, this, typeof, var, void, while, with},
+	% Literals, primitive types, and reference types.
+	morekeywords=[2]{false, null, true, boolean, number, undefined,
+		Array, Boolean, Date, Math, Number, String, Object},
+	% Built-ins.
+	morekeywords=[3]{eval, parseInt, parseFloat, escape, unescape},
+	sensitive,
+	morecomment=[s]{/*}{*/},
+	morecomment=[l]//,
+	morecomment=[s]{/**}{*/}, % JavaDoc style comments
+	morestring=[b]',
+	morestring=[b]"
+}[keywords, comments, strings]
+
+
+\lstdefinelanguage[ECMAScript2015]{JavaScript}[]{JavaScript}{
+	morekeywords=[1]{await, async, case, catch, class, const, default, do,
+		enum, export, extends, finally, from, implements, import, instanceof,
+		let, static, super, switch, throw, try},
+	morestring=[b]` % Interpolation strings.
+}
+
+\lstalias[]{ES6}[ECMAScript2015]{JavaScript}
+
+
+% Nastavení barev
+% Requires package: color.
+\definecolor{mediumgray}{rgb}{0.3, 0.4, 0.4}
+\definecolor{mediumblue}{rgb}{0.0, 0.0, 0.8}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{darkviolet}{rgb}{0.58, 0.0, 0.83}
+\definecolor{royalblue}{rgb}{0.25, 0.41, 0.88}
+\definecolor{crimson}{rgb}{0.86, 0.8, 0.24}
+
+% Nastavení pro Python
+\lstdefinestyle{Python}{
+	language=Python,
+	backgroundcolor=\color{white},
+	basicstyle=\ttfamily,
+	breakatwhitespace=false,
+	breaklines=false,
+	captionpos=b,
+	columns=fullflexible,
+	commentstyle=\color{mediumgray}\upshape,
+	emph={},
+	emphstyle=\color{crimson},
+	extendedchars=true,  % requires inputenc
+	fontadjust=true,
+	frame=single,
+	identifierstyle=\color{black},
+	keepspaces=true,
+	keywordstyle=\color{mediumblue},
+	keywordstyle={[2]\color{darkviolet}},
+	keywordstyle={[3]\color{royalblue}},
+	literate=%
+	{á}{{\'a}}1 {č}{{\v{c}}}1 {ď}{{\v{d}}}1 {é}{{\'e}}1 {ě}{{\v{e}}}1
+	{í}{{\'i}}1 {ň}{{\v{n}}}1 {ó}{{\'o}}1 {ř}{{\v{r}}}1 {š}{{\v{s}}}1
+	{ť}{{\v{t}}}1 {ú}{{\'u}}1 {ů}{{\r{u}}}1 {ý}{{\'y}}1 {ž}{{\v{z}}}1,		
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{black},
+	rulecolor=\color{black},
+	showlines=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stringstyle=\color{forestgreen},
+	tabsize=2,
+	title=\lstname,
+	upquote=true  % requires textcomp	
+}
+
+
+\lstdefinestyle{JSES6Base}{
+	backgroundcolor=\color{white},
+	basicstyle=\ttfamily,
+	breakatwhitespace=false,
+	breaklines=false,
+	captionpos=b,
+	columns=fullflexible,
+	commentstyle=\color{mediumgray}\upshape,
+	emph={},
+	emphstyle=\color{crimson},
+	extendedchars=true,  % requires inputenc
+	fontadjust=true,
+	frame=single,
+	identifierstyle=\color{black},
+	keepspaces=true,
+	keywordstyle=\color{mediumblue},
+	keywordstyle={[2]\color{darkviolet}},
+	keywordstyle={[3]\color{royalblue}},
+	literate=%
+	{á}{{\'a}}1 {č}{{\v{c}}}1 {ď}{{\v{d}}}1 {é}{{\'e}}1 {ě}{{\v{e}}}1
+	{í}{{\'i}}1 {ň}{{\v{n}}}1 {ó}{{\'o}}1 {ř}{{\v{r}}}1 {š}{{\v{s}}}1
+	{ť}{{\v{t}}}1 {ú}{{\'u}}1 {ů}{{\r{u}}}1 {ý}{{\'y}}1 {ž}{{\v{z}}}1,		
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\tiny\color{black},
+	rulecolor=\color{black},
+	showlines=true,
+	showspaces=false,
+	showstringspaces=false,
+	showtabs=false,
+	stringstyle=\color{forestgreen},
+	tabsize=2,
+	title=\lstname,
+	upquote=true  % requires textcomp
+}
+
+\lstdefinestyle{JavaScript}{
+	language=JavaScript,
+	style=JSES6Base,
+}
+\lstdefinestyle{ES6}{
+	language=ES6,
+	style=JSES6Base
+}
+
+\setlength{\headheight}{15pt}
+%\renewcommand{\refname}{Seznam použitých informačních zdrojů}
+
+%% Bordel pro práci - můžeš smáznout :) 
+%%%%%%%%%%%%%%%%%%%
+
+\usepackage{lipsum} %% balíček který píše lipsum (nesmyslný text, který se používá pro kontrolu typografie)
+
+\AtBeginDocument{\clearpage\pagestyle{empty}}
+
+%% Začátek dokumentu
+%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+	
+	\pagenumbering{Roman}
+	
+	\cleardoublepage
+	
+	%% Titulní stránka s informacemi
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	{\fontfamily{phv}\selectfont
+		%% Logo školy
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.6\linewidth]{image/logo-skoly.png} 
+		\end{figure}
+		
+		
+		%% Hlavička práce a její název (viz proměnná \nazev prace)
+		%% \sffamily %%% bezpatkové písmo - sans serif
+		{\bfseries %%% písmo na stránce je tučně
+			\begin{center}
+				\vspace{0.025 \textheight}
+				\LARGE{ZÁVĚREČNÁ STUDIJNÍ PRÁCE}\\
+				\large{dokumentace}\\
+				\vspace{0.075 \textheight}
+				\LARGE {\nazevPrace}\\
+			\end{center}  
+		}%%%
+		
+		\begin{figure}[h]
+			\centering
+			 
+		\end{figure}
+		
+		\vspace{0.02 \textheight}
+		\begin{table}[h!]
+			\begin{tabular}{ll}
+				\textbf{Autor:} & \jmenoAutora\\ 
+				\textbf{Obor:} & \kodOboru { } \obor\\
+				\textbf{} & \zamereni\\
+				\textbf{Třída:} & \trida\\
+				\textbf{Školní rok:} & \skolniRok\\
+			\end{tabular}
+			
+		\end{table}		
+	}
+	
+	\cleardoublepage %% Zalomení dvojstránky
+	
+	%% Stránka obsahující poděkování a prohlášení
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	%% Poděkování - nepovinné
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+
+	
+	\vspace*{0.7\textheight} %% Vertikální mezeru je možné upravit
+	
+	%% Prohlášení - povinné
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent{\large{\bfseries{Prohlášení}\\}}  %% uprav si koncovky podle toho na jaký rod se cítíš, vypadá to pak lépe :) 
+	\noindent{Prohlašuji, že jsem závěrečnou práci vypracovala samostatně a uvedla veškeré použité 
+		informační zdroje.\\}
+	\noindent{Souhlasím, aby tato studijní práce byla použita k výukovým a prezentačním účelům na Střední průmyslové a umělecké škole v Opavě, Praskova 399/8.}
+	\vfill
+	\noindent{V Opavě \datumOdevzdani\\}
+	\noindent
+	\begin{minipage}{\linewidth}
+		\hspace{9.5cm} 
+		\begin{tabular}{@{}p{6cm}@{}}
+			\dotfill \\
+			Podpis autora
+		\end{tabular}
+	\end{minipage}
+	
+	\cleardoublepage %% Zalomení dvojstránky
+	
+	%% Stránka obsahující abstrakt (anotaci)
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	%% Abstrakt v češtině
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\noindent{\Large{\bfseries{Abstrakt}\\}}
+	Tento projekt se zabývá tvorbou modelu automatické brány. Ta je ovládána IR ovladačem a Bluetooth komunikací díky modulu HC-05. Model je ovládán pomocí mikrokontroleru Arduino Nano ATmega328. Pro pohyb brány byl použit krokový motor s řadičem 28BYJ-48. Aktivita modelu je zapisována do paměti EEPROM. Tyto záspisy obsahují čas a informaci o zavření nebo otevření brány. Celý model je vytisknut na 3D tiskárně.
+	
+	\vspace{18pt}
+	
+	\noindent{\large{\bfseries{Klíčová slova}}}
+	
+	\noindent Automatická brána, 3D model, Arduino, krokový motor, Bluetooth. 
+	
+	\vspace{18pt}
+	
+	%% Abstrakt v angličtině
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	\noindent{\Large{\bfseries{Abstract}}}
+	
+	\noindent This project focuses on the development of a model of an automatic gate. The gate is controlled using an IR remote controller and Bluetooth communication via the HC-05 module. The model is operated by an Arduino Nano microcontroller based on the ATmega328. A stepper motor with the 28BYJ-48 driver is used to move the gate. The activity of the model is recorded in EEPROM memory. These records contain the time and information about whether the gate was opened or closed. The entire model is manufactured using a 3D printer. %% přepiš!!
+	
+	\vspace{18pt}
+	
+	\noindent{\large{\bfseries{Keywords}}}
+	
+	\noindent  Automatic gate, 3D model, Arduino, stepper motor, Bluetooth.
+	
+	\clearpage %% Zalomení stránky
+	
+	%% Stránka s generovaným obsahem
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	\tableofcontents %% Vygeneruje tabulku s obsahem
+	
+	\pagenumbering{arabic} %% Nastavení způsobu číslování stránek (alternativy roman | Roman)
+	\setcounter{page}{1} %% Nastavení počitadla stránek
+	
+	%% Stránka s úvodem - povinná část
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%		
+	\chapter*{Úvod}
+	%Tento příkaz vytvoří novou kapitolu s názvem "Úvod" ve vašem dokumentu.
+	%Hvězdička * u příkazu \chapter* znamená, že tato kapitola nebude mít číslo. Ve výsledném dokumentu se tedy objeví jako "Úvod" bez předcházejícího čísla kapitoly, které se obvykle zobrazuje u číslovaných kapitol.
+	%Tento příkaz také znamená, že kapitola se automaticky neobjeví v obsahu, protože LaTeX standardně zahrnuje do obsahu pouze číslované kapitoly.
+	\addcontentsline{toc}{chapter}{Úvod}
+	%Tento příkaz ručně přidává záznam do obsahu.
+	%První parametr toc označuje, že přidáváme záznam do Table of Contents (obsahu).
+	%Druhý parametr chapter specifikuje úroveň záznamu. V tomto případě říkáme, že přidávaný záznam má být považován za kapitolu.
+	%Třetí parametr Úvod je text, který se objeví v obsahu. V tomto případě bude v obsahu zobrazen název "Úvod".	
+	Rozhodla jsem se udělat tento projekt, protože mě zajímá hardware a práce s ním. Chtěla jsem si zkusit vyrobit něco téměř úplně od začátku. Vybrala jsem si automatickou bránu, protože je to něco, s čím se setkávám denně, a měla jsem nějakou obecnou představu o tom, jak to funguje. 
+	
+	Hlavním cílem projektu bylo vytvořit funkční zmenšený model brány. Uživatel ho může ovládat dvěma způsoby, IR ovladačem nebo připojením telefonu k Bluetooth modulu a následným ovládáním přes konzoli. Model také obsahuje bezpečnostní pojistku ve formě optické závory. Ta nedovolí, aby se brána zavřela, pokud je něco v její bezprostřední blízkosti a hrozilo by, že se jejich dráhy setkají. Mým cílem bylo také vypracování celého modelu, jeho následné vytisknutí na 3D tiskárně a vytvoření plošného spoje. V průběhu návrhu jsem uvažovala i nad přidáním kamery, ale nakonec jsem zůstala u původního plánu. 
+	
+	V následujících kapitolách se zabývám tím, jak model funguje, jaké technologie jsem zvolila a jak jsem postupovala při sestavování. 
+	
+	%Tipy k psaní úvodu
+	%Je povinný, nadpis neměňte, rozsah - max. 1 strana. 
+	%Tato část práce obsahuje: 
+	%* náhled do řešené problematiky, zdůvodnění volby problematiky, 
+	%* předem definované cíle práce, 
+	%* motivaci pro další čtení textu včetně stručného uvedení obsahu následujících kapitol 
+	
+	
+	\chapter{Automatické brány}
+	Tímto projektem jsem chtěla replikovat funkci automatické brány. Chtěla jsem vytvořit model, který by byl co nejvíce podobný skutečnému fungování takové brány. Ve praxi existuje několik druhů těchto konstrukcí a ty se dělí podle způsobu otevírání na posuvné a křídlové. 
+	
+	Křídlová brána se otvírá asi jako dveře. Potřebuje prostor za nebo před sebou, aby se křídla měla kam otevřít. Hodí se proto pro ne moc široké vjezdy. Nejčastěji se lze setkat z jednokřídlou otočnou nebo dvoukřídlou otočnou bránou. Existují ale i skládací křídlové brány, které jsou rozděleny na dvě nebo čtyři části.
+	
+	Posuvná brána, jak už z názvu vyplývá, se posouvá po kolejnici. Tato konstrukce potřebuje prostor, kam by se brána mohla schovat. Nejčastěji se skládá z jednoho dílu, ale existují i takové, které jsou rozděleny na více dílů. Ty se při otevírání do sebe složí a samotná brána při otevření nepotřebuje tolik prostoru. Posuvné brány se dále dělí na pojezdové, ty které jezdí po kolejnici zabudované v zemi, a samonosné, které se nedotýkají země. Ty ale potřebují silnější motor a konstrukci.
+	
+	Já jsem pro tetno projekt zvolila pojezdovou posuvnou bránu, protože její konstrukce je jednoduchá. Stačí, abych ji udržela ve vzpřímené poloze, a motor už ji udrží v kolejnici.
+	
+	
+	
+	
+	
+	
+	\chapter{Využité technologie}
+	\pagestyle{fancy}
+	\section[Hardware]{Hardware} %%[Text, který bude v obsahu]{Text, který se vytiskne na stránce} Zkus měnit jednotlivé závorky a uvidíš :) 
+	\subsection{Seznam použitých součástek}
+	\begin{itemize}
+		\item Mikrokontroler Arduino Nano ATmega328, 
+		\item krokový motor s řadičem 28BYJ-48,
+		\item Bluetooth modul HC-05,
+		\item IR senzor překážek,
+		\item RTC hodiny reálného času DS3231,
+		\item EEPROM 24C02B,
+		\item IR přijímač VS1838B,
+		\item žlutá LED dioda,
+		\item limitní mikrospínač (2 ks),
+		\item rezistor 330R, 10k (2 ks),
+		\item univerzální plošný spoj,
+		\item svorkovnice pro osazení plošného spoje, 
+		\item napájecí konektor DC 5,5x2,5,
+		\item šroubky M3.
+		\end{itemize}
+	
+	
+	\subsection{Arduino Nano ATmega328}
+	Pro ovládání projektu jsem vybrala tento mikropočítač. Má 14 digitálních a 6 analogových pinů, operační paměť pro program 32 kB a pracovní napětí 5 V. Použila jsem ho pro jeho rozměry, jeho naprosto dostačující kapacitu a také, protože jsem s ním už mnohokrát pracovala ve škole. 	
+	
+	\begin{figure}
+		\centering
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[width=.7\linewidth]{image/arduino_nano}
+			\captionof{figure}{Arduino Nano ATmega328.}
+			\label{fig:arduino_nano}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[width=.7\linewidth]{image/Arduino-Nano-Pinout}
+			\captionof{figure}{Piny Arduina Nano}
+			\label{fig:arduino-nano-pinou}
+		\end{minipage}
+	\end{figure}
+	
+	\subsection{Krokový motor 28BYJ-48}
+	Pro pohyb modelu jsem použila tento krokový motor. Je unipolární, tzn. nepotřebuje změnu napájení pro opačný směr otáčení. Pro správné ovládání se nejdříve musí propojit pomocí 5pinového konektoru s driverem (řadičem), ten se následně propojí s Arduinem čtyřmi ovládacími piny. Ty posílají do driveru impulzy a ten následně spíná cívky motoru. Do driveru se také musí přivést napájení, ale kvůli odběru motoru, které může přesahovat 50 mA, musí být z externího zdroje. Stejně jako u Arduina je jeho pracovní napětí 5 V. 
+	
+	Vybrala jsem ho, protože existuje řada knihoven, které tento model podporují, a taky se\\ s ním snadno pracuje.  
+	
+	
+	\subsection{Bluetooth modul HC-05 }
+	Tento komunikační modul jsem použila pro sekundární ovládání modelu a výpis záznamů z externí paměti. Podporuje protokol Bluetooth verzi 2.0. S Arduinem komunikuje pomocí sériové linky rychlostí 9600 baudů. Potřebuje napětí v rozsahu 3,3 až 6 Voltů. Modul jsem propojila přímo s Arduinem pomocí pinů D10 a D11. 
+	
+	\subsection{IR senzor překážek}
+	Pro optickou závoru jsem vybrala tento modul, kvůli jeho jednoduchosti. Je tvořen IR LED diodou, která vysílá IR záření, a IR přijímačem, který signál při odrazu přijímá. Také měřená vzdálenost se dá upravit potenciometrem, nejefektivnější je mezi 0 až 10 cm. Sám modul má obrácenou logiku, takže při sepnutí modul vrací logickou 0. Ale kvůli jednoduchosti modulu, může být jeho funkce ovlivněna slunečním světlem. Jeho pracovní napětí je 5 V a odběr se pohybuje kolem 20 mA.  
+	
+	
+	\subsection{Hodiny reálného času DS3231}
+	Tento modul jsem využila pro získání přesného času otevření nebo zavření brány. Samotný modul obsahuje i druhý obvod, paměť EEPROM AT24C32, která má uložiště 32 KB, ten jsem ale nepoužila. Modul je po odpojení napájen z baterie, takže si zachovává nastavený čas. Je také velmi přesný díky integrovanému teplotně kompenzovanému krystalu, který má přesnost asi\\ 2 ppm (particle per million), což znamená chybu 1-2 sekundy za měsíc. Komunikace s Arduinem probíhá přes I2C sběrnici. Pro jednodušší práci s časovými informacemi jsem použila knihovnu RTClib.h verzi 2.1.4.  
+	
+	
+	\subsection{EEPROM 24C02B}
+	Paměť EEPROM 24C02B má kapacitu 2 Kb, což je pro můj projekt také naprosto dostačující. Patří k nevolatilním neboli trvalým pamětem, které si uchovávají záznamy i po odpojení napájení.   
+	Důvod, proč jsem použila samostatnou paměť, a ne paměť EEPROM AT24C32, která je součástí RTC modulu, je kvůli její snadnější výměně v případě jejího poškození nebo nefunkčnosti. 
+	Do této paměti ukládám už zmíněný čas a aktivitu brány. Její kapacita vystačí na 51 záznamů. První byte paměti slouží jako index, díky němuž program získá adresu posledního záznamu. Jakmile se paměť zaplní, index se vyresetuje a záznamy se zase začnou přepisovat\\ od začátku. S Arduinem komunikuje přes I2C a její výchozí adresa je 0x50, tzn. všechny piny pro adresaci jsou připojeny na GND. 
+	
+	
+	\subsection{IR přijímač a limitní mikrospínač}
+	Pro primární ovládání jsem zvolila IR přijímač VS1838B pro dálková ovládání. Je to jednoduchá součástka s dvěma napájecími piny a jedním komunikačním pinem. Přijímá infračervené záření o frekvenci 38 kHz, což je obvyklá frekvence pro ovladače, a je kompatibilní se standartními kódovacími schématy. 
+	
+	Limitní mikrospínače jsem využila pro krajní pozice brány. Po sepnutí zastaví motor. Vybrala jsem je pro jejich velikost, která je asi 7,5x2,5x3,5 mm. Jako asi každý limitní spínač má 3 piny, pin C (common), NO (normally open) a NC (normally closed). Já jsem pro svůj projekt použila pouze pin C, který jsem připojila na +5 V, a pin NO, který se při stisknutí vypínače sepne. Ten jsem propojila s Arduinem a také s GND přes rezistor. To zajistí, aby při nesepnutí spínače Arduino nečetlo prázdnou hodnotu, ale logickou 0. 
+	\pagebreak
+	
+	\section[Napájení]{Napájení}
+	Projekt napájím ze sítě adaptérem, který převádí 240 V střídavého proudu na 5 V stejnosměrného proudu. Rozhodla jsem se napájení za adaptérem rozvětvit na dvě části. První napájí\\ Arduino a moduly k němu připojené, ta druhá přivádí napětí do motoru. Je to hlavně kvůli vyššímu odběru motoru nebo ztrátě napětí, např. při zbytečném tahání drátků na delší vzdálenosti, nebo špatnému kontaktu se svorkovnici.
+	
+	
+	
+	\section[Software]{Software}
+	
+	\subsection{Jazyk Arduina a PlatformIO IDE}
+	Jazyk Arduina je zjednodušený programovací jazyk C/C++. Označuje se také jako Wiring. Byl vytvořen specificky pro programování mikrokontrolerů.  
+	
+	PlatformIO IDE je rozšíření pro VS Code. Podporuje nejen Arduino, ale také spoustu dalších mikročipů jako např. ESP32 nebo Raspberry Pi RP2040. Umožňuje vytváření složitějších projektů a snadněni pracuje s knihovnami. 
+	
+	\subsection{EasyEDA}
+	EasyEDA je webová aplikace pro navrhování shémat zapojení a generování plošných spojů. Vybrala jsem si ji kvůli její široké databázi hardwaru a také proto, že jsem s ní pracovala už ve škole. 
+	
+	\subsection{OnShape CAD}
+	OnShape je online software pro technické modelování. Využila jsem ho pro vytvoření 3D modelu. Dlouho jsem uvažovala o použití desktopové aplikace FreeCAD, ale na doporučení jsem tento nápad zavrhla. Hlavní výhodou této aplikace oproti FreeCADu je automatické ukládání modelů a prostředí, ve kterém se docela snadno orientuje. Její nevýhodou je, jako u každé SaaS (\textit{Software as a Service}) aplikace, nemožnost dostat se k modelům bez připojení k internetu.
+	
+	\subsection{Mobilní aplikace Serial Bluetooth Terminal}
+	Tuto aplikaci jsem použila pro komunikaci z Bluetooth modulem. Aplikace obsahuje terminál, kterým lze zasílat příkazy Arduinu. Vyvíjí ji \textit{Kai Morich} a použila jsem verzi \textit{1.50}.
+	
+	\pagebreak
+	\section{3D tiskárna Prusa}
+	Pro vytisknutí modelu jsem použila 3D tiskárnu Prusa i3 MK3S. Zvolila jsem materiál PETG, který je velmi odolný a často se používá pro tisk mechanických součástek. Není ale úplně vhodný pro detaily a převisy.
+
+		
+		
+	\chapter{Způsob řešení}
+
+	
+	
+	Postup řešení:
+	\begin{itemize}
+	\item Zapojení modulů na zkušební nepájivé pole.
+	\item Testovací program pro tyto moduly.
+	\item Návrh schématu zapojení.
+	\item První návrh části modelu pro ověření funkčnosti motoru.
+	\item První verze konečného programu.
+	\item Úprava sloupků pro moduly.
+	\item Návrh plošného spoje a jeho zapájení.
+	\item Dokončení modelu.
+	\item Poslední úpravy kódu.
+	\end{itemize}
+
+
+	
+	
+
+	\section[Program]{Program}
+	
+	\subsection{Struktura}
+	
+	\begin{lstlisting}[basicstyle=\ttfamily\small]
+		main/
+		|-- include/
+		|   |-- definitions.h
+		|   |-- eeprom.h
+		|   |-- motor.h
+		|-- lib/
+		|-- src/
+		|   |-- eeprom.cpp
+		|   |-- main.cpp
+		|   |-- motor.cpp
+		|-- test/
+		|-- .gitignore
+		|-- platformio.ini
+	\end{lstlisting}
+
+
+	\subsection{Knihovny}
+	V projektu jsem využila hned několik knihoven. Do výčtu jsem nezahrnula knihovnu \textit{Arduino.h}, protože ta je součástí každého PlatformIO projektu. 
+	\begin{itemize}
+		\item \textbf{IRremote.hpp} - Tato knihovna pracuje s IR přijímačem. Podporuje velkou škálu kodeků a je docela přehledná. Vybrala jsem ji, protože jsem s ní už pracovala ve škole. Vyvíjí ji \textit{Arduino-IRremote} a použila jsem verzi \textit{4.5.0}.
+		\item \textbf{RTClib.h} - Tuto knihovnu jsem využila pro práci s RTC modulem. Vývojářem je \textit{Adafruit}. Knihovna usnadňuje práci s formáty času a konfigurací modulu. Použitá verze: \textit{2.1.4}.
+		\item \textbf{Stepper.h} - Toto je knihovna pro usnadnění práce s krokovým motorem. Vyvíjí\\ ji \textit{arduino-libraries} (oficiální GitHub repozitář Arduino týmu pro vývoj knihoven), použila jsem verzi \textit{1.1.3}.
+		\item \textbf{SoftwareSerial.h} - Oficiální knihovna Arduina, využila jsem ji pro TX/RX komunikaci s Bluetooth modulem.
+		\item \textbf{Wire.h} - Dalši oficiální knihovna Arduina. Umožňuje I2C komunikaci. 
+	\end{itemize}
+	
+	\subsection{Zpracování kódu}
+	Při testování jsem si pro skoro každý modul udělala samostatný repozitář, kde jsem vyzkoušela jeho funkčnost. Poté jsem vytvořila nový hlavní repozitář, do kterého jsem vše naskládala.
+	
+	Začala jsem ovládáním motoru, protože je to základ mého projektu. Když jsem vytvořila funkce pro jeho zapnutí a ovládání směru, rozhodla jsem se přidat LED diodu a IR přijímač. Přijímačem jsem se ho snažila zapnout a LEDkou blikat, když se pohyboval. Poté jsem přdala Bluetooth modul, IR senzor překážek a spínače. Když jsem se přes Bluetooth mobilem dokázala připojit k Arduinu, rozhodla jsem se zprovoznit ovládání motoru přes mobilní aplikaci Serial Bluetooth Terminal. Nakonec mi už chybělo jen přidat RTC modul a paměť EEPROM. Do této paměti ukládám informace o aktivitě modelu. Datum, čas a akci brány.
+	
+	Celý kód jsem se rozhodla rozdělit na více částí. Proto jsem vytvořila soubory \textit{eeprom.cpp} a \textit{motor.cpp}. Tyto soubory obsahují funkce týkající se hardwaru v názvu souboru. Původně jsem chtěla oddělit i Bluetooth komunikaci, ale zde jsem narazila na problém, takže jsem funkce s ní spojené nechala v \textit{main.cpp}. Také jsem vytvořila soubor \textit{definitions.c}, který obsahuje všechny konstanty. Po jeho naimportování v hlavičce souboru mohu tyto konstanty využívat.
+	
+	\begin{lstlisting}[style=JavaScript, caption={Ukázka funkce gateMove() ze souboru \textit{main.cpp}.}]
+		void gateMove(unsigned long value){ // přijímá kód z IR přijímače
+			unsigned long end = 0; // proměnná kde se uloží kód pro ukončení
+			int ledTime = 0; // nulovnání počítadla pro ledku
+			if(value == OPEN){ // ověří platnost přijatého kódu
+				if(!open){ // pokud je brána zavřená, otevře ji
+					if(!digitalRead(BTNOPEN)){
+						logEvent(1); // zaznamená aktivitu do paměti
+						do{
+							IrReceiver.resume(); // zresetuje IR komunikaci 
+							motorStep(1); // motor se pohne ve směru hodin
+							if(IrReceiver.decode()){ // pokud přijme kód, dekóduje ho
+													 // a uloží do proměnné 'end'
+								end = IrReceiver.decodedIRData.decodedRawData;
+							}
+							ledState(ledTime); // funkce pro blikání ledky, každých 
+												// 5 hodnot led změní stav
+							ledTime++;		// připočte 1 do počítadla
+						}while(end != OPEN && !digitalRead(BTNOPEN)); //zkontroluje
+								// signál ze spínače, porovná přijatý kód
+						ledTime = 0; // vynuluje počítadlo
+						ledEnds(); // vypne led
+					}
+					open = !open; // zneguje status brány
+				}else { // když je brána otevřená, zavře ji
+					if(!digitalRead(BTNCLOSED)){
+						logEvent(2);
+						do{
+							IrReceiver.resume();
+							motorStep(0);
+							if(IrReceiver.decode()){
+								end = IrReceiver.decodedIRData.decodedRawData;
+							}
+							ledState(ledTime);
+							ledTime++;
+						}while(end != OPEN && !digitalRead(BTNCLOSED) && 
+						 digitalRead(IRSensor)); // zkontroluje i senzor
+						ledEnds();
+						ledTime = 0;
+					}
+					open = !open;
+				}
+			}
+			IrReceiver.resume();
+		}
+	\end{lstlisting}
+	
+	\section[Model]{Model}
+	Model jsem navrhla ve webové aplikaci OnShape. Rozhodla jsem se vytvořit ho z více částí jako skládačku. To mi umožní snadněji vyměňovat jeho části, pokud by se něco nepovedlo nebo zničilo. Dohromady jsem ho spojila šroubky.
+	
+	Začala jsem modelem ozubeného kolečka a hřebínku. Kolečko jsem nasadila na motor a hřebínek později připevnila na bránu sekundovým lepidlem. Tento mechanismus bude bránu posouvat. 
+	
+	Poté jsem se rozhodla modelovat sloupky. Celkově jsem vlastně vytvořila tři druhy sloupků. 
+	Pro jistění brány jsem vymodelovala sloupky s ramenem. To zajistí, že brána bude stále ve vzpřímené poloze. To aby nevyjela z koleje zařídí motor, který bránu zvrchu přitlačí. Tyto sloupky jsem připevnila doprostřed dráhy brány tak, aby vždy alespoň jeden ze sloupků bránu držel.
+	
+	Pro motor jsem zvolila jednoduché sloupky, které jej budou držet na místě. Mají jen otvor pro připevnění motoru. Ten jsem upravila tak, aby se šroubek v něm dal posunout a tím upravit v jaké výšce motor bude. Na základně jsem stejně upravila i místo pro připevnění sloupku, aby se motor dal posunouvat dopředu nebo dozadu.
+	
+	Nakonec jsem modelovala koncové sloupky. Oba dva jsem přispůsobila pro jejich vlastní funcki. Když je brána plně otevřená, dotýka se spínače připevněného na levém krajním sloupku. Tento sloupek nese také IR přijímač.
+	
+	Kromě druhého spínače drží druhý krajní soupek také IR senzor překážek a LED diodu, která bliká pokud se brána pohybuje. 
+	
+	Vše bude držet základna. Její model obsahuje kolej pro bránu, což je 1 mm zapuštěná drážka o šířce 3 mm. Na základně jsem také vytvořila prostor pro Arduino a plošný spoj. Zespodu základny jsem udělala drážky pro drátky, které přivádím ke sloupkům.
+	
+	
+	
+	\section{Plošný spoj}
+	Pro plošný spoj jsem využila univerzální pájecí pole. Na zažátku projektu jsem si vytvořila návrh zapojení (viz. obrázek \ref{fig:shemazapojeni}). Podle něj jsem si navrhla propoje a rozvržení plošného spoje. Poté jsem si předkreslila cesty na papír, abych při chybě mohla návrh jednoduše upravit. Nakonec jsem tyto cesty překreslila na vrchní nevodivou stranu pájecího pole.
+	
+	Jako první jsem pájela konektory pro Arduino, Bluetooth, RTC modul a paměť. Potom jsem zapájela svorkovnice, do kterých později přivedu drátky. Vše jde vidět na obrázku \ref{fig:plosny_spoj}. Tyto konektory mi sloužily jako orientační body při pájení cest.
+	Ty jsem vytvořila pomocí tenkého drátku a cínu. Nejdříve jsem si připájela začátek drátku k pinu, zohýbala jsem ho podle tvaru cesty, připevnila na několika místech a připájela jeho druhý konec. Poté jsem se vrátila a upevnila každý bod. Vodivá strana plošného spoje jde vidět na obrázku \ref{fig:plosny_spoj_spodek}. Plošný spoj je zde otočen o 180 stupňů podle podélné osy (řada svorkovnic je nahoře). Nakonec jsem multimetrem ověřila, že jsou piny správně propojené.
+	
+	V dalším kroku jsem si připravila drátky pro motor a součástky, které jsou zabudované ve sloupcích. Každý konec jsem odizolovala a pocínovala. U spínačů, LEDky a IR přijímače jsem vždy jeden konec tohoto drátku připájela k pinu modulu. Pro motor a IR senzor jsem si vytvořila konektory (viz. \ref{fig:konektor}). Tyto součástky jsem vložila na jejich místa v modelu a drátky protáhla pod základnu, kde jsem vytvořila drážky pro jejich ukrytí. 
+	
+	Potom jsem se rozhodla připravit si konektor pro napájení. Využila jsem k tomu silnější drátky, než pro zbytek projektu. K napájecímu i uzemňovacímu pinu konektoru jsem připájela dva vodiče. Pro drátky, které napájí motor, jsem vytvořila stejný konektor, jako pro ty, které ho ovládají. Rozdílný byl pouze počet pinů, který tento konektor měl. Zbylému páru vodičů jsem pouze pocínovala konce.
+	
+	Nakonec jsem všechny drátky zapojila a šroubky připevnila ve svorkovnici. Ověřila jsem, že mají kontakt. Nakonec jsem celý obvod připojila k napájení.
+	
+	
+	\begin{figure}
+		\centering
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[width=.9\linewidth]{image/20251217_191920}
+			\captionof{figure}{Zapájený plošný spoj s moduly.}
+			\label{fig:plosny_spoj}
+		\end{minipage}%
+		\begin{minipage}{.5\textwidth}
+			\centering
+			\includegraphics[width=.9\linewidth]{image/20251217_192129}
+			\captionof{figure}{Spodní strana plošného spoje.}
+			\label{fig:plosny_spoj_spodek}
+		\end{minipage}
+	\end{figure}
+
+	
+	\begin{figure}
+	\centering
+	\includegraphics[width=1\linewidth]{image/shema_zapojeni}
+	\caption[Schéma zapojení.]{Schéma zapojení.}
+	\label{fig:shemazapojeni}
+	\end{figure}
+	
+	
+	\chapter[Výsledky řešení]{Výsledky řešení}
+	\section[Ovládání]{Ovládání}
+	Model se při zapojení do zásuvky ihned zapne. Arduino si pak ujasní, kde se brána nacházi. Pokud je plně zavřená nebo otevřená, uloží si tento stav do globální proměnné. Pokud se brána nacházi někde mezi spínači, automaticky ji plně otevře.
+	
+	Za primární ovládání by se dal považovat ovladač, který IR zářením posílá kódy. Pokud IR přijímač získá správný kód, brána se začne pohybovat. Pokud při tomto pohybu přijímač přijme tento kód znova, zastaví bránu a ta se při příštím zapnutí bude pohybovat na opačnou stranu. 
+	
+	Roli sekundárního ovládání zastává Bluetooth modul, který přenáší komunikaci mezi terminálem v mobilním telefonu a Arduinem. Zde lze bránu také aktivovat a navíc si do tohoto terminálu lze nechat vypsat všechny záznamy o aktivitě modelu.
+	
+	Jak už jsem zmínila, bránu lze zastavit ovladačem, sama se pak zastaví pokaždé, když se dotkne jednoho z krajních spínačů. Při zavírání jí lze také zastavit přerušením optické závory.
+	
+	Ovládání téměř splňuje všechny mé vytyčené cíle. Bohužel se neobešlo bez drobných chyb. Největší problém mi dělal IR senzor překážek. Byl až moc citlivý, proto jsem ho při většině testů musela vytáhnout z sloupku. Částečně jsem tuto nepříjemnost vyřešila nasazením stínících čepiček na diody, které jsem vytvořila ze smršťovací trubičky.
+	
+	\section[Záznamy]{Záznamy}
+	Záznamy, vypsané do terminálu, jsem původně chtěla naformátovat úplně jinak. Protože celá paměť obsahuje zápisů 51, zamýšlela jsem vypsat jenom 20 nejnovějších. Tenhle systém ale přestal fungovat pokaždé, když se zápisy začaly přepisovat zase od začátku. Tento problém jsem nakonec vyřešila výpisem všech záznamů. Pro lepší čitelnost jsem je naformátovala do skupin po deseti řádcích. Vše jde vidět na obrázku \ref{fig:vypisterminalu}. Pouze první skupina obsahuje pouze devět záznamů a poslední jen jeden. 
+	
+	Další problém, který jsem stále ještě nevyřešila, zahrnuje ztracený poslední zápis, který se podle všeho do paměti zapíše, ale do terminálu ne.
+	\pagebreak
+	
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.5\linewidth]{image/vypis_terminalu}
+		\caption{Výpis z paměti do terminálu.}
+		\label{fig:vypisterminalu}
+	\end{figure}
+	
+	\section[Kód]{Kód}
+	Výsledný kód splňuje svou funkci. Samozřejmě by se dal napsat mnohem přehledněji, proto tuto část označím jako nejslabší článek celého projektu. \textit{Main.cpp} je příliš dlouhý a některé funkce by se daly sloučit do jedné.
+	\pagebreak
+	\section[Výsledný vzhled modelu]{Výsledný vzhled modelu}
+	Tato část projektu je asi zpracována nejlépe. Jediné úpravy, které bych na modelu provedla, by byly spíše estetické. Zakryla bych vrchní otevřenou část sloupku a IR senzor na straně. Možná bych ještě prohloubila nebo jinak zvětšila drážky pro drátky zespodu základny. Také jsem je chtěla připevnit tavnou pistolí, ale to by mohlo tenké drátky poškodit, takže jsem zůstala\\ u lepící pásky (viz. obrázek \ref{fig:zakladna_spodek_model}). 
+	\begin{figure}[p]
+		\centering
+		\includegraphics[width=0.9\linewidth]{image/20260108_203527}
+		\caption[]{Model bez napájení, zavřený.}
+		\label{fig:model_zavreny}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.9\linewidth]{image/20260108_210745}
+		\caption[]{Napájený model, otevřený.}
+		\label{fig:model_otevreny}
+	\end{figure}
+	
+	Výsledný vzled modelu lze vidět na obrázcích \ref{fig:model_zavreny} a \ref{fig:model_otevreny}. Pohled shora se nachází v příloze, viz. obrázek \ref{fig:model_zvrchu}. 
+	
+	
+	
+	
+	\chapter*{Závěr}
+	Celý projekt by se dal považovat za funkční. Samozřejmě má své drobné nedostatky, ale na jejich opravu mi nezbyl čas, nebo prostředky. Spousta věcí by se dala vyřešit pořízením jiných, vhodnějších součástek, ale za mě pro tento projekt naprosto vystačily tyto. \\
+	Mé cíle byly většinou splněny. Projekt by se dal rozšířit o kameru, nebo Wi-Fi modul pro sledování stavu a záznamů přes webový server. Taky bych si mohla nechat vyrobit profesinální plošný spoj namísto toho vytvořeného na univerzálním pájecím poji.\\
+	Pokud by se tento model měl využívat v praxi, bylo by vhodné vymětit použitou paměť\\ EEPROM za jinou, vhodnější pro časté přepisování, nebo zvolit větší kapacitu paměti, aby se zabránilo častému přepisování stejné buňky.
+	
+	
+	
+	%% 
+	\renewcommand{\refname}{Seznam použitých internetových zdrojů}
+	\begin{thebibliography}{9}
+		\bibitem{Vjezdová brána}\textit{Vjezdová brána.} Online. In: Wikipedia: the free encyclopedia. San Francisco (CA): Wikimedia Foundation, 2001-2026. Dostupné z: \url{https://cs.wikipedia.org/wiki/Vjezdov%C3%A1_br%C3%A1na}. [cit. 2026-01-08].
+		\bibitem{Prusa i3}\textit{Prusa i3}. Online. In: Wikipedia: the free encyclopedia. San Francisco (CA): Wikimedia Foundation, 2001-2026. Dostupné z: \url{https://cs.wikipedia.org/wiki/Prusa_i3}. [cit. 2026-01-08].
+		\bibitem{SoftwareSerial Library}\textit{SoftwareSerial Library}. Online. Dostupné z: \url{https://docs.arduino.cc/learn/built-in-libraries/software-serial/#begin}. [cit. 2026-01-09].
+		\bibitem{RTC_modul_navod}\textit{RTC Hodiny reálného času DS3231 + AT24C32 paměťový modul - Návody Drátek.} Online. Dostupné z: \url{https://navody.dratek.cz/navody-k-produktum/rtc-hodiny-realneho-casu-ds3231-at24c32-pametovy-modul.html?_gl=1*nn6oiq*_up*MQ..*_gs*MQ..&gclid=CjwKCAiAzrbIBhA3EiwAUBaUdTbU1xXABdAUUsSJcr43bs6vR9GmyyjODTNtQmIF6hd68jElmn2mjhoCFhwQAvD_BwE}. [cit. 2026-01-09].
+		\bibitem{last_minute_engineers} \textit{Last Minute Engineers: Arduino Nano Pinout Reference.} Online. Dostupné z: \url{https://lastminuteengineers.com/arduino-nano-pinout/}. [cit. 2026-01-09].
+		\bibitem{stepper_library} \textit{GitHub: Arduino Libraries - Stepper Library for Arduino.}  Online. Dostupné z: \url{https://github.com/arduino-libraries/Stepper}. [cit. 2026-01-09].
+		\bibitem{rtc_library}\textit{GitHub: Adafruit Industries - RTC Arduino library.} Online. Dostupné z: \url{https://github.com/adafruit/RTClib?tab=readme-ov-file}. [cit. 2026-01-09].
+		\bibitem{bluetooth_navod}\textit{Arduino Bluetooth modul HC-05 - Návody Drátek.} Online. Dostupné z: \url{https://navody.dratek.cz/navody-k-produktum/arduino-bluetooth-modul-hc-05.html?_gl=1*qir1sc*_up*MQ..*_gs*MQ..&gclid=CjwKCAiAzrbIBhA3EiwAUBaUdXOU5O9iV82j8aUsSBK4fpcx0ldwrNyQapNDFr8ytgcFOc1s_ye-SRoCwg0QAvD_BwE}. [cit. 2026-01-09].
+		\bibitem{motor_navod}\textit{Krokový motor 28BYJ-48 a driver ULN2003 - Návody Drátek.} Online. Dostupné z: \url{https://navody.dratek.cz/navody-k-produktum/krokovy-motor-a-driver.html?_gl=1*amtiga*_up*MQ..*_gs*MQ..&gclid=CjwKCAiAzrbIBhA3EiwAUBaUdZMjOIUR6vu3ykNcICCPdXwUmr6GQpg0sxQvg9nRcPnFB50ICDdrDBoCxjkQAvD_BwE}. [cit. 2026-01-09].
+		\bibitem{platformio}\textit{PlatformIO Community.} Online. Dostupné z: \url{https://community.platformio.org/}. [cit. 2026-01-09].
+		\bibitem{arduino_forum}\textit{Arduino Forum.} Online. Dostupné z: \url{https://forum.arduino.cc/}. [cit. 2026-01-09].
+	\end{thebibliography}
+	
+	%% obrázky 
+	\listoffigures
+	
+	
+
+	\appendix %% začínají přílohy
+	
+	\titleformat{\chapter}[block]{\scshape\bfseries\LARGE}{Příloha \thechapter}{10pt}{\vspace{0pt}}[\vspace{-22pt}] %% nastavení nadpisu u příloh
+	
+	\chapter{- Fotodokumetnace}
+	\begin{figure}%
+		\centering
+		\includegraphics[width=0.9\linewidth]{image/20251217_191438}
+		\caption[Zapojení projektu na nepájivém poli.]{Zapojení projektu na nepájivém poli.}
+		\label{fig:20251217191438}
+	\end{figure}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\linewidth]{image/20251217_204437}
+		\captionof{figure}{Hotový konektor pro IR senzor.}
+		\label{fig:konektor}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\linewidth]{image/20251217_204108}
+		\captionof{figure}{Drátek s připájenou DuPont dutinkou před vložením do konektoru.}
+		\label{fig:pin_konektoru}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\linewidth]{image/20251217_193315}
+		\captionof{figure}{Přehled většiny testovacích částí modelu.}
+		\label{fig:model_casti}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\linewidth]{image/zakladna_model}
+		\captionof{figure}{Návrh konečného modelu základny v OnShape.}
+		\label{fig:zakladna_model}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\linewidth]{image/zakladna_zespodu}
+		\captionof{figure}{Spodní strana základny s vyvedenými drátky.}
+		\label{fig:zakladna_spodek_model}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[width=.9\linewidth]{image/20260108_210823}
+		\captionof{figure}{Pohled na model shora.}
+		\label{fig:model_zvrchu}
+	\end{figure}
+	\end{document}

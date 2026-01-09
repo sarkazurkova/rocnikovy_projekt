@@ -140,9 +140,9 @@ void gateMove(unsigned long value){
       }while(end != OPEN && !digitalRead(BTNOPEN));
       ledTime = 0; //vynuluje hodnotu
       ledEnds(); //vypnuti led
-      open = !open; //neguje status brány
       Serial.println(open);
     }
+    open = !open; //neguje status brány
   }else {
     if(!digitalRead(BTNCLOSED)){
       logEvent(2);
@@ -157,9 +157,9 @@ void gateMove(unsigned long value){
       }while(end != OPEN && !digitalRead(BTNCLOSED) && digitalRead(IRSensor));
       ledEnds();
       ledTime = 0;
-      open = !open;
       Serial.println(open);
-    }
+    } 
+    open = !open;
     }
   }
   IrReceiver.resume();
@@ -187,8 +187,8 @@ void bSignal(byte BluetoothData){
         break;
       default:
         // v případě přijetí ostatních znaků
-        // vytiskneme informaci o neznámé zprávě
-        bluetooth.println("Neznamy prikaz.");
+        // vytiskne informaci o neznámé zprávě
+        break;
   }
 }
 
